@@ -3,43 +3,28 @@ make: Entering directory '/home/altair/Documenti/OS/Kernel'
 nasm boot/bootloader.asm -f bin -o boot/bootloader.bin
  
 nasm boot/kernel_entry.asm -f elf -o boot/kernel_entry.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/debug.c -o kernel/debug.o
- 
 nasm kernel/interrupts/interrupts.asm -f elf -o kernel/interrupts/interrupts.o
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/disk.c -o kernel/disk.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/keyboard.c -o kernel/keyboard.o
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/memory.c -o kernel/memory.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/paging.c -o kernel/paging.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/panic.c -o kernel/panic.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/scheduler.c -o kernel/scheduler.o
  
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/screen.c -o kernel/screen.o
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/serial.c -o kernel/serial.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/timer.c -o kernel/timer.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/interrupts/idt.c -o kernel/interrupts/idt.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/interrupts/irq.c -o kernel/interrupts/irq.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  kernel/interrupts/isr.c -o kernel/interrupts/isr.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  libc/IO.c -o libc/IO.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  libc/print.c -o libc/print.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  libc/stdio.c -o libc/stdio.o
- 
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  libc/string.c -o libc/string.o
  
 x86_64-elf-gcc  -Wall -ffreestanding -m32 -g -c  init/main.c -o init/main.o
 x86_64-elf-ld -m elf_i386 -T linker.ld boot/kernel_entry.o kernel/debug.o kernel/interrupts/interrupts.o kernel/disk.o kernel/keyboard.o kernel/memory.o kernel/paging.o kernel/panic.o kernel/scheduler.o kernel/screen.o kernel/serial.o kernel/timer.o kernel/interrupts/idt.o kernel/interrupts/irq.o kernel/interrupts/isr.o libc/IO.o libc/print.o libc/stdio.o libc/string.o init/main.o --oformat binary -o full_kernel.bin
 cat boot/bootloader.bin full_kernel.bin > OS.bin
- 
 make: Leaving directory '/home/altair/Documenti/OS/Kernel'
  

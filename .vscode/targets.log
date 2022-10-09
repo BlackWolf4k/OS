@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Oct  2 14:00:26 2022
+# Make data base, printed on Sun Oct  9 15:43:11 2022
 
 # Variables
 
@@ -55,7 +53,7 @@ VSCODE_CODE_CACHE_PATH = /home/altair/.config/Code - Insiders/CachedData/43676d6
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.9MCMT1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.JPF9S1
 # default
 .LOADED := 
 # default
@@ -63,7 +61,7 @@ XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.9MCMT1
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=51286d669a9321a8830b107d633968ff
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=b5017603406bd4ead23c7d67633ee6c9
 # makefile
 CURDIR := /home/altair/Documenti/OS/Kernel
 # environment
@@ -89,7 +87,7 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 6171
+VSCODE_PID = 42974
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -97,13 +95,13 @@ XDG_SESSION_TYPE = wayland
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code-insiders_code-insiders.desktop
 # environment
-SESSION_MANAGER = local/Vega:@/tmp/.ICE-unix/930,unix/Vega:/tmp/.ICE-unix/930
+SESSION_MANAGER = local/Vega:@/tmp/.ICE-unix/925,unix/Vega:/tmp/.ICE-unix/925
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-insiders-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=51286d669a9321a8830b107d633968ff
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=b5017603406bd4ead23c7d67633ee6c9
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
@@ -137,7 +135,7 @@ SNAP_USER_COMMON = /home/altair/snap/code-insiders/common
 # environment
 SNAP = /snap/code-insiders/1108
 # environment
-INVOCATION_ID = ed2dd9a1dea44742b828401f77cb9c42
+INVOCATION_ID = b3b13d1bc5304f46a5de9e5e8bd192a3
 # environment
 SNAP_REVISION = 1108
 # environment
@@ -167,7 +165,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := OS.bin
 # environment
-SYSTEMD_EXEC_PID = 930
+SYSTEMD_EXEC_PID = 925
 # makefile (from 'Makefile', line 12)
 C_HEADERS = $(wildcard 	include/*.h include/kernel/*.h include/kernel/interrupts/*.h )
 # environment
@@ -183,13 +181,13 @@ SNAP_CONTEXT = hJWi6DhyLAN59axgofuSEitJEssUnzcloHIV1mTVdqpE883YFSvF
 # makefile (from 'Makefile', line 4)
 LDFLAGS = -m elf_i386
 # environment
-MANAGERPID = 857
+MANAGERPID = 845
 # environment
 DBUS_STARTER_BUS_TYPE = session
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 6131
+GIO_LAUNCHED_DESKTOP_FILE_PID = 42933
 # environment
 _ = /usr/bin/make
 # environment
@@ -199,7 +197,7 @@ CFLAGS = -Wall -ffreestanding -m32 -g -c
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/altair/snap/code-insiders/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:20961
+JOURNAL_STREAM = 8:21152
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -258,11 +256,11 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # init (device 2051, inode 59642333): 3 files, no impossibilities.
 # kernel/interrupts (device 2051, inode 59642340): 6 files, no impossibilities.
 # include/kernel/interrupts (device 2051, inode 59511238): 5 files, no impossibilities.
-# . (device 2051, inode 59380331): 14 files, no impossibilities.
+# . (device 2051, inode 59380331): 15 files, no impossibilities.
 # libc (device 2051, inode 59642328): 6 files, no impossibilities.
 # include/kernel (device 2051, inode 59510929): 14 files, no impossibilities.
 
-# 69 files, no impossibilities in 8 directories.
+# 70 files, no impossibilities in 8 directories.
 
 # Implicit Rules
 
@@ -279,6 +277,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 	nasm $< -f bin -o $@
 
 # 3 implicit rules, 0 (0.0%) terminal.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 # Files
 
 # Not a target:
@@ -338,7 +339,7 @@ debug: OS.bin kernel.elf
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-13 07:41:14.308995703
+#  Last modified 2022-10-09 15:31:17.643086416
 #  File has been updated.
 #  Successfully updated.
 
@@ -381,7 +382,6 @@ libc/stdio.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 boot/kernel_entry.o:
@@ -503,12 +503,12 @@ kernel/interrupts/irq.o:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 111 / storage = 1425 B / avg = 12 B
-# current buf: size = 8162 B / used = 1425 B / count = 111 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 112 / storage = 1429 B / avg = 12 B
+# current buf: size = 8162 B / used = 1429 B / count = 112 / avg = 12 B
 
-# strcache performance: lookups = 205 / hit rate = 45%
+# strcache performance: lookups = 206 / hit rate = 45%
 # hash-table stats:
-# Load=111/8192=1%, Rehash=0, Collisions=3/205=1%
-# Finished Make data base on Sun Oct  2 14:00:26 2022
+# Load=112/8192=1%, Rehash=0, Collisions=3/206=1%
+# Finished Make data base on Sun Oct  9 15:43:11 2022
 
  

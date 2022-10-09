@@ -38,6 +38,11 @@ kernel.elf: boot/kernel_entry.o ${OBJ}
 # qemu-system-x86_64 -drive format=raw,file="iso/OS.bin",index=0,if=floppy
 # qemu-system-i386 -fda OS.bin
 
+first_run: OS.bin
+	make disk ARGS="10G"
+	mv hard_disk.img ../
+	make run
+
 # QEMU INFORMATIONS
 # -m 2048 : memory size, -enable-kvm : enable virtualization, -smp 2 : 2 cores,
 # -net -nic -net user : ( removable ) ethernet enable, -hda ../hard_drive.img : hard drive, -fda OS.bin : bootable disk ( floppy )
