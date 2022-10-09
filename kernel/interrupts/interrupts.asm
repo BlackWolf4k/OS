@@ -1,0 +1,210 @@
+[extern isr_handler]
+[extern irq_handler]
+
+; Macros for setting up interrupt vectors
+%macro INTERRUPT_SERVICE_ROUTINE 1
+dd interrupt_service_routine%1
+%endmacro
+
+%macro INTERRUPT_REQUEST 1
+dd interrupt_request%1
+%endmacro
+
+%macro INTERRUPT_NOERROR 1
+interrupt_service_routine%1:
+	push 0
+	push %1
+	jmp isr_common_stub
+%endmacro
+
+%macro INTERRUPT_ERROR 1
+interrupt_service_routine%1:
+	push %1
+	jmp isr_common_stub
+%endmacro
+
+%macro INTERRUPT_RQ 1
+interrupt_request%1:
+	push %1 - 32
+	push %1
+	jmp irq_common_stub
+%endmacro
+
+isr_common_stub:
+	; Push the registers to the stack
+	pusha
+
+	; Push the data segment selector
+	mov ax, ds
+	push eax
+	
+	; Move kernel data segment
+	mov ax, 0x10
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	
+	; Push the stack to the C
+	push esp
+	
+	; Call C
+	call isr_handler
+	pop eax ; do I need this? Yes i do
+	
+	; Restore original state
+	pop eax
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	
+	; Restore registers
+	popa
+
+	add esp, 8
+	iret
+
+irq_common_stub:
+	; Push the registers to the stack
+	pusha
+	
+
+	; Push the data segment selector
+	mov ax, ds
+	push eax
+	
+	; Move kernel data segment
+	; DANGER ZONE
+	mov ax, 0x10
+	mov ds, ax
+	;mov es, ax
+	;mov fs, ax
+	;mov gs, ax
+	
+	; Push the stack to the C
+	push esp
+	
+	; Call C
+	call irq_handler
+	pop ebx
+	
+	; Restore original state
+	; DANGER ZONE
+	pop ebx
+	;mov ds, ax
+	;mov es, ax
+	;mov fs, ax
+	;mov gs, ax
+	
+	; Restore registers
+	popa
+
+	add esp, 8
+	iret
+
+
+INTERRUPT_NOERROR 	0
+INTERRUPT_NOERROR 	1
+INTERRUPT_NOERROR 	2
+INTERRUPT_NOERROR 	3
+INTERRUPT_NOERROR 	4
+INTERRUPT_NOERROR 	5
+INTERRUPT_NOERROR 	6
+INTERRUPT_NOERROR 	7
+INTERRUPT_ERROR 	8
+INTERRUPT_NOERROR 	9
+INTERRUPT_ERROR 	10
+INTERRUPT_ERROR 	11
+INTERRUPT_ERROR 	12
+INTERRUPT_ERROR 	13
+INTERRUPT_ERROR 	14
+INTERRUPT_NOERROR 	15
+INTERRUPT_NOERROR 	16
+INTERRUPT_ERROR 	17
+INTERRUPT_NOERROR	18
+INTERRUPT_NOERROR	19
+INTERRUPT_NOERROR	20
+INTERRUPT_NOERROR	21
+INTERRUPT_NOERROR	22
+INTERRUPT_NOERROR	23
+INTERRUPT_NOERROR	24
+INTERRUPT_NOERROR	25
+INTERRUPT_NOERROR	26
+INTERRUPT_NOERROR	27
+INTERRUPT_NOERROR	28
+INTERRUPT_NOERROR	29
+INTERRUPT_ERROR 	30
+INTERRUPT_NOERROR 	31
+
+INTERRUPT_RQ	 	32
+INTERRUPT_RQ	 	33
+INTERRUPT_RQ	 	34
+INTERRUPT_RQ	 	35
+INTERRUPT_RQ	 	36
+INTERRUPT_RQ	 	37
+INTERRUPT_RQ	 	38
+INTERRUPT_RQ	 	39
+INTERRUPT_RQ	 	40
+INTERRUPT_RQ	 	41
+INTERRUPT_RQ	 	42
+INTERRUPT_RQ	 	43
+INTERRUPT_RQ	 	44
+INTERRUPT_RQ	 	45
+INTERRUPT_RQ	 	46
+INTERRUPT_RQ	 	47
+
+global interrupts_vector
+
+interrupts_vector:
+	; Interrupt Service Routine
+    INTERRUPT_SERVICE_ROUTINE 0
+    INTERRUPT_SERVICE_ROUTINE 1
+    INTERRUPT_SERVICE_ROUTINE 2
+    INTERRUPT_SERVICE_ROUTINE 3
+    INTERRUPT_SERVICE_ROUTINE 4
+    INTERRUPT_SERVICE_ROUTINE 5
+    INTERRUPT_SERVICE_ROUTINE 6
+    INTERRUPT_SERVICE_ROUTINE 7
+    INTERRUPT_SERVICE_ROUTINE 8
+    INTERRUPT_SERVICE_ROUTINE 9
+    INTERRUPT_SERVICE_ROUTINE 10
+    INTERRUPT_SERVICE_ROUTINE 11
+    INTERRUPT_SERVICE_ROUTINE 12
+    INTERRUPT_SERVICE_ROUTINE 13
+    INTERRUPT_SERVICE_ROUTINE 14
+    INTERRUPT_SERVICE_ROUTINE 15
+    INTERRUPT_SERVICE_ROUTINE 16
+    INTERRUPT_SERVICE_ROUTINE 17
+    INTERRUPT_SERVICE_ROUTINE 18
+    INTERRUPT_SERVICE_ROUTINE 19
+    INTERRUPT_SERVICE_ROUTINE 20
+    INTERRUPT_SERVICE_ROUTINE 21
+    INTERRUPT_SERVICE_ROUTINE 22
+    INTERRUPT_SERVICE_ROUTINE 23
+    INTERRUPT_SERVICE_ROUTINE 24
+    INTERRUPT_SERVICE_ROUTINE 25
+    INTERRUPT_SERVICE_ROUTINE 26
+    INTERRUPT_SERVICE_ROUTINE 27
+    INTERRUPT_SERVICE_ROUTINE 28
+    INTERRUPT_SERVICE_ROUTINE 29
+    INTERRUPT_SERVICE_ROUTINE 30
+    INTERRUPT_SERVICE_ROUTINE 31
+	
+	; Interrupt requests
+    INTERRUPT_REQUEST 32
+    INTERRUPT_REQUEST 33
+    INTERRUPT_REQUEST 34
+    INTERRUPT_REQUEST 35
+    INTERRUPT_REQUEST 36
+    INTERRUPT_REQUEST 37
+    INTERRUPT_REQUEST 38
+    INTERRUPT_REQUEST 39
+    INTERRUPT_REQUEST 40
+    INTERRUPT_REQUEST 41
+    INTERRUPT_REQUEST 42
+    INTERRUPT_REQUEST 43
+    INTERRUPT_REQUEST 44
+    INTERRUPT_REQUEST 45
+    INTERRUPT_REQUEST 46
+    INTERRUPT_REQUEST 47

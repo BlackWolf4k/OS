@@ -1,0 +1,13 @@
+{
+	"makefile.extensionOutputFolder": "./.vscode",
+	"files.associations": {
+		"screen.h": "c",
+		"stdio.h": "c",
+		"string": "c",
+		"idt.h": "c",
+		"*.tcc": "c",
+		"stdarg.h": "c",
+		"sstream": "c"
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
+}

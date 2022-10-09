@@ -1,0 +1,514 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sun Oct  2 14:00:26 2022
+
+# Variables
+
+# makefile (from 'Makefile', line 17)
+OBJ = ${C_SOURCES:.c=.o kernel/interrupts/interrupts.o}
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+NO_AT_BRIDGE = 1
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+VSCODE_CWD = /home/altair
+# environment
+GDM_LANG = it_IT.UTF-8
+# default
+MAKE_COMMAND := make
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+SNAP_INSTANCE_NAME = code-insiders
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code-insiders/1108/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/altair/Documenti/OS/Kernel
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+MAIL = /var/spool/mail/altair
+# environment
+XDG_DATA_DIRS = /home/altair/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/altair/.config/Code - Insiders/CachedData/43676d69e091e7f9451667925f3f0cc20d7e7221
+# environment
+LANG = C
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.9MCMT1
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# environment
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=51286d669a9321a8830b107d633968ff
+# makefile
+CURDIR := /home/altair/Documenti/OS/Kernel
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+WAYLAND_DISPLAY = wayland-0
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = gnome
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# environment
+SNAP_REEXEC = 
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_PID = 6171
+# environment
+XDG_SESSION_TYPE = wayland
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code-insiders_code-insiders.desktop
+# environment
+SESSION_MANAGER = local/Vega:@/tmp/.ICE-unix/930,unix/Vega:/tmp/.ICE-unix/930
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-insiders-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=51286d669a9321a8830b107d633968ff
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"it","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+SNAP_COOKIE = hJWi6DhyLAN59axgofuSEitJEssUnzcloHIV1mTVdqpE883YFSvF
+# environment
+FLUTTER_HOME = /opt/flutter
+# environment
+PATH = /usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/flutter/bin:/usr/lib/jvm/default/bin
+# default
+MAKEFILES := 
+# environment
+MOTD_SHOWN = pam
+# automatic
+^F = $(notdir $^)
+# environment
+SNAP_USER_COMMON = /home/altair/snap/code-insiders/common
+# environment
+SNAP = /snap/code-insiders/1108
+# environment
+INVOCATION_ID = ed2dd9a1dea44742b828401f77cb9c42
+# environment
+SNAP_REVISION = 1108
+# environment
+SNAP_REAL_HOME = /home/altair
+# environment
+USERNAME = altair
+# environment
+GNOME_SETUP_DISPLAY = :1
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_CURRENT_DESKTOP = GNOME
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = gnome
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = altair
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code-insiders_code-insiders.desktop
+# environment
+SNAP_ARCH = amd64
+# makefile
+.DEFAULT_GOAL := OS.bin
+# environment
+SYSTEMD_EXEC_PID = 930
+# makefile (from 'Makefile', line 12)
+C_HEADERS = $(wildcard 	include/*.h include/kernel/*.h include/kernel/interrupts/*.h )
+# environment
+DISPLAY = :0
+# environment
+USER = altair
+# default
+MAKE_VERSION := 4.3
+# environment
+SNAP_DATA = /var/snap/code-insiders/1108
+# environment
+SNAP_CONTEXT = hJWi6DhyLAN59axgofuSEitJEssUnzcloHIV1mTVdqpE883YFSvF
+# makefile (from 'Makefile', line 4)
+LDFLAGS = -m elf_i386
+# environment
+MANAGERPID = 857
+# environment
+DBUS_STARTER_BUS_TYPE = session
+# environment
+DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 6131
+# environment
+_ = /usr/bin/make
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 2)
+CFLAGS = -Wall -ffreestanding -m32 -g -c 
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/altair/snap/code-insiders/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+JOURNAL_STREAM = 8:20961
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/altair
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-1bd9abe9-1.72.0-insider-main.sock
+# environment
+SNAP_NAME = code-insiders
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code-insiders/1108/usr/share/glib-2.0/schemas
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'Makefile', line 6)
+C_SOURCES = $(wildcard 	kernel/*.c kernel/interrupts/*.c libc/*.c init/*.c )
+# environment
+SNAP_VERSION = 43676d69
+# default
+SUFFIXES := 
+# makefile (from 'Makefile', line 3)
+LD = x86_64-elf-ld
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_COMMON = /var/snap/code-insiders/common
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
+# makefile (from 'Makefile', line 1)
+CC = x86_64-elf-gcc 
+# environment
+SNAP_USER_DATA = /home/altair/snap/code-insiders/1108
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = gnome
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# variable set hash-table stats:
+# Load=116/1024=11%, Rehash=0, Collisions=5/151=3%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# kernel (device 2051, inode 59380334): 13 files, no impossibilities.
+# include (device 2051, inode 59510925): 8 files, no impossibilities.
+# init (device 2051, inode 59642333): 3 files, no impossibilities.
+# kernel/interrupts (device 2051, inode 59642340): 6 files, no impossibilities.
+# include/kernel/interrupts (device 2051, inode 59511238): 5 files, no impossibilities.
+# . (device 2051, inode 59380331): 14 files, no impossibilities.
+# libc (device 2051, inode 59642328): 6 files, no impossibilities.
+# include/kernel (device 2051, inode 59510929): 14 files, no impossibilities.
+
+# 69 files, no impossibilities in 8 directories.
+
+# Implicit Rules
+
+%.o: %.c include/stdarg.h include/stddef.h include/stdio.h include/string.h include/kernel/debug.h include/kernel/disk.h include/kernel/error.h include/kernel/kernel.h include/kernel/keyboard.h include/kernel/memory.h include/kernel/paging.h include/kernel/scheduler.h include/kernel/screen.h include/kernel/serial.h include/kernel/timer.h include/kernel/interrupts/idt.h include/kernel/interrupts/irq.h include/kernel/interrupts/isr.h
+#  recipe to execute (from 'Makefile', line 30):
+	${CC} ${CFLAGS} $< -o $@
+
+%.o: %.asm
+#  recipe to execute (from 'Makefile', line 33):
+	nasm $< -f elf -o $@
+
+%.bin: %.asm
+#  recipe to execute (from 'Makefile', line 36):
+	nasm $< -f bin -o $@
+
+# 3 implicit rules, 0 (0.0%) terminal.
+# Files
+
+# Not a target:
+boot/bootloader.bin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compile: OS.bin
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 63):
+	make clean
+
+# Not a target:
+kernel/memory.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+full_kernel.bin: boot/kernel_entry.o kernel/debug.o kernel/interrupts/interrupts.o kernel/disk.o kernel/interrupts/interrupts.o kernel/keyboard.o kernel/interrupts/interrupts.o kernel/memory.o kernel/interrupts/interrupts.o kernel/paging.o kernel/interrupts/interrupts.o kernel/panic.o kernel/interrupts/interrupts.o kernel/scheduler.o kernel/interrupts/interrupts.o kernel/screen.o kernel/interrupts/interrupts.o kernel/serial.o kernel/interrupts/interrupts.o kernel/timer.o kernel/interrupts/interrupts.o kernel/interrupts/idt.o kernel/interrupts/interrupts.o kernel/interrupts/irq.o kernel/interrupts/interrupts.o kernel/interrupts/isr.o kernel/interrupts/interrupts.o libc/IO.o kernel/interrupts/interrupts.o libc/print.o kernel/interrupts/interrupts.o libc/stdio.o kernel/interrupts/interrupts.o libc/string.o kernel/interrupts/interrupts.o init/main.o kernel/interrupts/interrupts.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 24):
+	${LD} ${LDFLAGS} -T linker.ld $^ --oformat binary -o $@
+
+kernel.elf: boot/kernel_entry.o kernel/debug.o kernel/interrupts/interrupts.o kernel/disk.o kernel/interrupts/interrupts.o kernel/keyboard.o kernel/interrupts/interrupts.o kernel/memory.o kernel/interrupts/interrupts.o kernel/paging.o kernel/interrupts/interrupts.o kernel/panic.o kernel/interrupts/interrupts.o kernel/scheduler.o kernel/interrupts/interrupts.o kernel/screen.o kernel/interrupts/interrupts.o kernel/serial.o kernel/interrupts/interrupts.o kernel/timer.o kernel/interrupts/interrupts.o kernel/interrupts/idt.o kernel/interrupts/interrupts.o kernel/interrupts/irq.o kernel/interrupts/interrupts.o kernel/interrupts/isr.o kernel/interrupts/interrupts.o libc/IO.o kernel/interrupts/interrupts.o libc/print.o kernel/interrupts/interrupts.o libc/stdio.o kernel/interrupts/interrupts.o libc/string.o kernel/interrupts/interrupts.o init/main.o kernel/interrupts/interrupts.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 27):
+	${LD} ${LDFLAGS} -o $@ -Ttext 0x1000 $^ 
+
+# Not a target:
+kernel/keyboard.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/interrupts/isr.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+debug: OS.bin kernel.elf
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 54):
+	echo 'gdb -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"'
+	qemu-system-x86_64 -s -S -fda OS.bin
+	make clean
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-13 07:41:14.308995703
+#  File has been updated.
+#  Successfully updated.
+
+disk:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 60):
+	qemu-img create hard_disk.img $( ARGS )
+
+# Not a target:
+libc/IO.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/serial.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 66):
+	$(RM) boot/*.o boot/*.bin
+	$(RM) bootloader/*.o bootloader/*.bin
+	$(RM) init/*.o
+	$(RM) kernel/*.o
+	$(RM) kernel/interrupts/*.o
+	$(RM) libc/*.o
+	$(RM) full_kernel.bin
+	$(RM) OS.bin
+	$(RM) kernel.elf
+
+# Not a target:
+libc/stdio.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+boot/kernel_entry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+init/main.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+libc/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run: OS.bin
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 49):
+	qemu-system-x86_64 -m 2048 -enable-kvm -smp 2 -net nic -net user -drive format=raw,file=./OS.bin,index=0,if=floppy -drive format=raw,file=../hard_drive.img -boot order=c -serial stdio
+	make clean
+
+# Not a target:
+kernel/timer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+libc/print.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/interrupts/interrupts.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/screen.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/interrupts/idt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/scheduler.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/panic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/paging.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/disk.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kernel/debug.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+OS.bin: boot/bootloader.bin full_kernel.bin
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 21):
+	cat $^ > OS.bin
+
+# Not a target:
+kernel/interrupts/irq.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=33/1024=3%, Rehash=0, Collisions=0/124=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 111 / storage = 1425 B / avg = 12 B
+# current buf: size = 8162 B / used = 1425 B / count = 111 / avg = 12 B
+
+# strcache performance: lookups = 205 / hit rate = 45%
+# hash-table stats:
+# Load=111/8192=1%, Rehash=0, Collisions=3/205=1%
+# Finished Make data base on Sun Oct  2 14:00:26 2022
+
+ 
