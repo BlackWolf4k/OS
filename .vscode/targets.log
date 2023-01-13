@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Oct  9 15:43:11 2022
+# Make data base, printed on Fri Jan 13 23:03:19 2023
 
 # Variables
 
@@ -19,8 +21,6 @@ LC_ALL = C
 # environment
 NO_AT_BRIDGE = 1
 # environment
-SNAP_INSTANCE_KEY = 
-# environment
 VSCODE_CWD = /home/altair
 # environment
 GDM_LANG = it_IT.UTF-8
@@ -31,7 +31,7 @@ MAKE_COMMAND := make
 # environment
 SNAP_INSTANCE_NAME = code-insiders
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code-insiders/1108/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code-insiders/1189/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -49,11 +49,11 @@ XDG_DATA_DIRS = /home/altair/.local/share/flatpak/exports/share:/var/lib/flatpak
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/altair/.config/Code - Insiders/CachedData/43676d69e091e7f9451667925f3f0cc20d7e7221
+VSCODE_CODE_CACHE_PATH = /home/altair/.config/Code - Insiders/CachedData/04b15ff231a2c3cfcdd90d90c16075a9c1e6da15
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.JPF9S1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.69W4X1
 # default
 .LOADED := 
 # default
@@ -61,7 +61,7 @@ XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.JPF9S1
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=b5017603406bd4ead23c7d67633ee6c9
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=6a26a63eaa8801692f08304463bd92d9
 # makefile
 CURDIR := /home/altair/Documenti/OS/Kernel
 # environment
@@ -82,12 +82,10 @@ WAYLAND_DISPLAY = wayland-0
 XDG_SESSION_DESKTOP = gnome
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
-# environment
-SNAP_REEXEC = 
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 42974
+VSCODE_PID = 17427
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -95,13 +93,13 @@ XDG_SESSION_TYPE = wayland
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code-insiders_code-insiders.desktop
 # environment
-SESSION_MANAGER = local/Vega:@/tmp/.ICE-unix/925,unix/Vega:/tmp/.ICE-unix/925
+SESSION_MANAGER = local/Vega:@/tmp/.ICE-unix/978,unix/Vega:/tmp/.ICE-unix/978
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-insiders-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=b5017603406bd4ead23c7d67633ee6c9
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=6a26a63eaa8801692f08304463bd92d9
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
@@ -115,6 +113,8 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 1
 # environment
+PICO_SDK_PATH = /usr/share/pico-sdk
+# environment
 MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
@@ -123,7 +123,7 @@ SNAP_COOKIE = hJWi6DhyLAN59axgofuSEitJEssUnzcloHIV1mTVdqpE883YFSvF
 # environment
 FLUTTER_HOME = /opt/flutter
 # environment
-PATH = /usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/flutter/bin:/usr/lib/jvm/default/bin
+PATH = /usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/flutter/bin:/usr/lib/jvm/default/bin:/home/altair/.local/bin
 # default
 MAKEFILES := 
 # environment
@@ -133,11 +133,11 @@ MOTD_SHOWN = pam
 # environment
 SNAP_USER_COMMON = /home/altair/snap/code-insiders/common
 # environment
-SNAP = /snap/code-insiders/1108
+SNAP = /snap/code-insiders/1189
 # environment
-INVOCATION_ID = b3b13d1bc5304f46a5de9e5e8bd192a3
+INVOCATION_ID = fce94c5514bc4392be44506a963774a9
 # environment
-SNAP_REVISION = 1108
+SNAP_REVISION = 1189
 # environment
 SNAP_REAL_HOME = /home/altair
 # environment
@@ -165,7 +165,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := OS.bin
 # environment
-SYSTEMD_EXEC_PID = 925
+SYSTEMD_EXEC_PID = 978
 # makefile (from 'Makefile', line 12)
 C_HEADERS = $(wildcard 	include/*.h include/kernel/*.h include/kernel/interrupts/*.h )
 # environment
@@ -175,19 +175,19 @@ USER = altair
 # default
 MAKE_VERSION := 4.3
 # environment
-SNAP_DATA = /var/snap/code-insiders/1108
+SNAP_DATA = /var/snap/code-insiders/1189
 # environment
 SNAP_CONTEXT = hJWi6DhyLAN59axgofuSEitJEssUnzcloHIV1mTVdqpE883YFSvF
 # makefile (from 'Makefile', line 4)
 LDFLAGS = -m elf_i386
 # environment
-MANAGERPID = 845
+MANAGERPID = 902
 # environment
 DBUS_STARTER_BUS_TYPE = session
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 42933
+GIO_LAUNCHED_DESKTOP_FILE_PID = 17384
 # environment
 _ = /usr/bin/make
 # environment
@@ -197,7 +197,7 @@ CFLAGS = -Wall -ffreestanding -m32 -g -c
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/altair/snap/code-insiders/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:21152
+JOURNAL_STREAM = 8:22400
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -207,11 +207,11 @@ HOME = /home/altair
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-1bd9abe9-1.72.0-insider-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-1bd9abe9-1.75.0-insider-main.sock
 # environment
 SNAP_NAME = code-insiders
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code-insiders/1108/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code-insiders/1189/usr/share/glib-2.0/schemas
 # default
 .RECIPEPREFIX := 
 # automatic
@@ -219,7 +219,7 @@ GSETTINGS_SCHEMA_DIR = /snap/code-insiders/1108/usr/share/glib-2.0/schemas
 # makefile (from 'Makefile', line 6)
 C_SOURCES = $(wildcard 	kernel/*.c kernel/interrupts/*.c libc/*.c init/*.c )
 # environment
-SNAP_VERSION = 43676d69
+SNAP_VERSION = 04b15ff2
 # default
 SUFFIXES := 
 # makefile (from 'Makefile', line 3)
@@ -235,7 +235,7 @@ SNAP_COMMON = /var/snap/code-insiders/common
 # makefile (from 'Makefile', line 1)
 CC = x86_64-elf-gcc 
 # environment
-SNAP_USER_DATA = /home/altair/snap/code-insiders/1108
+SNAP_USER_DATA = /home/altair/snap/code-insiders/1189
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -243,7 +243,7 @@ GDMSESSION = gnome
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=116/1024=11%, Rehash=0, Collisions=5/151=3%
+# Load=115/1024=11%, Rehash=0, Collisions=4/150=3%
 
 # Pattern-specific Variable Values
 
@@ -251,7 +251,7 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# kernel (device 2051, inode 59380334): 13 files, no impossibilities.
+# kernel (device 2051, inode 59380334): 14 files, no impossibilities.
 # include (device 2051, inode 59510925): 8 files, no impossibilities.
 # init (device 2051, inode 59642333): 3 files, no impossibilities.
 # kernel/interrupts (device 2051, inode 59642340): 6 files, no impossibilities.
@@ -260,7 +260,7 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # libc (device 2051, inode 59642328): 6 files, no impossibilities.
 # include/kernel (device 2051, inode 59510929): 14 files, no impossibilities.
 
-# 70 files, no impossibilities in 8 directories.
+# 71 files, no impossibilities in 8 directories.
 
 # Implicit Rules
 
@@ -277,9 +277,6 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 	nasm $< -f bin -o $@
 
 # 3 implicit rules, 0 (0.0%) terminal.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 # Files
 
 # Not a target:
@@ -292,9 +289,10 @@ compile: OS.bin
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 63):
+#  recipe to execute (from 'Makefile', line 68):
 	make clean
 
+ 
 # Not a target:
 kernel/memory.o:
 #  Implicit rule search has not been done.
@@ -315,6 +313,15 @@ kernel.elf: boot/kernel_entry.o kernel/debug.o kernel/interrupts/interrupts.o ke
 #  recipe to execute (from 'Makefile', line 27):
 	${LD} ${LDFLAGS} -o $@ -Ttext 0x1000 $^ 
 
+first_run: OS.bin
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 42):
+	make disk ARGS="10G"
+	mv hard_disk.img ../
+	make run
+
 # Not a target:
 kernel/keyboard.o:
 #  Implicit rule search has not been done.
@@ -331,7 +338,7 @@ debug: OS.bin kernel.elf
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 54):
+#  recipe to execute (from 'Makefile', line 59):
 	echo 'gdb -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"'
 	qemu-system-x86_64 -s -S -fda OS.bin
 	make clean
@@ -339,7 +346,7 @@ debug: OS.bin kernel.elf
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-09 15:31:17.643086416
+#  Last modified 2022-10-09 17:54:18.116044667
 #  File has been updated.
 #  Successfully updated.
 
@@ -347,7 +354,7 @@ disk:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 60):
+#  recipe to execute (from 'Makefile', line 65):
 	qemu-img create hard_disk.img $( ARGS )
 
 # Not a target:
@@ -366,7 +373,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 66):
+#  recipe to execute (from 'Makefile', line 71):
 	$(RM) boot/*.o boot/*.bin
 	$(RM) bootloader/*.o bootloader/*.bin
 	$(RM) init/*.o
@@ -418,7 +425,7 @@ run: OS.bin
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 49):
+#  recipe to execute (from 'Makefile', line 54):
 	qemu-system-x86_64 -m 2048 -enable-kvm -smp 2 -net nic -net user -drive format=raw,file=./OS.bin,index=0,if=floppy -drive format=raw,file=../hard_drive.img -boot order=c -serial stdio
 	make clean
 
@@ -496,19 +503,19 @@ kernel/interrupts/irq.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=33/1024=3%, Rehash=0, Collisions=0/124=0%
+# Load=34/1024=3%, Rehash=0, Collisions=0/126=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 112 / storage = 1429 B / avg = 12 B
-# current buf: size = 8162 B / used = 1429 B / count = 112 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 114 / storage = 1450 B / avg = 12 B
+# current buf: size = 8162 B / used = 1450 B / count = 114 / avg = 12 B
 
-# strcache performance: lookups = 206 / hit rate = 45%
+# strcache performance: lookups = 210 / hit rate = 45%
 # hash-table stats:
-# Load=112/8192=1%, Rehash=0, Collisions=3/206=1%
-# Finished Make data base on Sun Oct  9 15:43:11 2022
+# Load=114/8192=1%, Rehash=0, Collisions=3/210=1%
+# Finished Make data base on Fri Jan 13 23:03:19 2023
 
  

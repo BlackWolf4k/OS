@@ -2,20 +2,22 @@
 
 ## Need Packages
 ###### Compiler
-x86_64-elf-gcc
+> x86_64-elf-gcc
 
 ###### Linker
-x86_64-elf-ld
+> x86_64-elf-ld
 
 ###### Emulator
-qemu
+> qemu
 
 ## Running
 Tested only on linux
 
 ###### First Run
 If it is the first time you run this operative system need run the following command:
+
 ```make run_first```
+
 This command will create a 10G hard disk in your previous folder
 
 ###### Following runs
