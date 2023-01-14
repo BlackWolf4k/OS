@@ -7,11 +7,13 @@ C_SOURCES = $(wildcard 	kernel/*.c 					\
 						kernel/interrupts/*.c		\
 					   	libc/*.c 					\
 					   	init/*.c					\
+						file_system/*.c				\
 						)
 
 C_HEADERS = $(wildcard 	include/*.h 					\
 						include/kernel/*.h				\
 						include/kernel/interrupts/*.h 	\
+						include/kernel/file_system/*.h 	\
 					   	)
 
 OBJ = 	${C_SOURCES:.c=.o 			\
@@ -71,6 +73,7 @@ clean:
 	$(RM) boot/*.o boot/*.bin
 	$(RM) bootloader/*.o bootloader/*.bin
 	$(RM) init/*.o
+	$(RM) file_system/*.o
 	$(RM) kernel/*.o
 	$(RM) kernel/interrupts/*.o
 	$(RM) libc/*.o
