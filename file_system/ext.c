@@ -10,8 +10,8 @@ Offset	SIZE		Description
 +12		4			Number of unlocated blocks
 +16		4			Number of unlocated inodes
 +20		4			Number of the block of the superblock
-+24		4			Removed
-+28		4			Removed
++24		4			The size of a block
++28		4			The size of a fragment
 +32		4			Number of block per block group
 +36		4			Number of fragment per block group
 +40		4			Number of inodes per block group
@@ -120,6 +120,21 @@ Value		Description
 0x200		Removed
 0x400		Removed // to remove??
 0x800		Removed // to remove??
+
+MATH
+Number of blocks per partition
+nb( ns, bs ) = ( ( ns - 2 ) * 512 ) / bs
+Where:
+	ns = number of sectors
+	bs = block size
+Each sector is 512 bytes long
+The size of the superblock is already subtracted
+
+Inodes per block
+ib( bs ) = bs / 128
+Where:
+	bs = block size
+Each inode is 128 bytes long
 */
 
 #include "../include/stddef.h"
@@ -132,23 +147,23 @@ typedef struct
 	uint32_t number_of_unallocated_blocks;
 	uint32_t number_of_unallocated_inodes;
 	uint32_t number_of_block_containing_superblock;
-	uint32_t __removed0;
-	uint32_t __removed1;
+	uint32_t block_size;
+	uint32_t fragment_size;
 	uint32_t blocks_per_block_group;
 	uint32_t fragments_per_block_group;
 	uint32_t inodes_per_block_group;
 	uint32_t last_mount;
 	uint32_t last_written;
-	uint16_t __removed2;
-	uint16_t __removed3;
+	uint16_t __removed0;
+	uint16_t __removed1;
 	uint16_t ext2_signature;
 	uint16_t file_system_state;
 	uint16_t error_handling_methods;
-	uint16_t __removed4;
-	uint32_t __removed5;
-	uint32_t __removed6;
+	uint16_t __removed2;
+	uint32_t __removed3;
+	uint32_t __removed4;
 	uint32_t operating_system_id;
-	uint32_t __removed7;
+	uint32_t __removed5;
 	uint16_t user_id;
 	uint16_t group_id;
 } superblock_descriptor_t;

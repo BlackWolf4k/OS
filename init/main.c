@@ -47,30 +47,7 @@ void kmain()
 
 	kprintf( "Hello World!\n" );
 
-	kprintf( "Kernel End: '%p'", &kernel_end );
-
-	char* b = kmalloc( 512 );
-	char* a = kmalloc_c( 4096 );
-
-	if ( a == NULL || b == NULL )
-		kprintf( "NULL\n" );
-
-	write_disk( a, 4096, 0x00 );
-
-
-	write_disk( "Hello Disk World!\n", 19, 0x01 );
-	create_partition( 0, create_partition_descriptor( 1, lba_to_chs( 0x02 ), 0x83, lba_to_chs( 0x4 ) ) );
-	
-	read_disk( a, 1, 0x0 );
-	kprintf( "A:");
-	for ( uint16_t i = 0; i < 512; i++ )
-		kprintf( "%u", a[i] );
-
-	// read_disk( b, 1, 0x1);
-	// kprintf( b );
-
-	kfree( b );
-	kfree( a );
+	kprintf( "Kernel End: '%p'\n", &kernel_end );
 
 	kprintf( "Goodbye World!\n" );
 

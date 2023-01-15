@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jan 14 18:00:19 2023
+# Make data base, printed on Sat Jan 14 18:27:36 2023
 
 # Variables
 
@@ -66,6 +66,8 @@ MAKEFLAGS = pqrR
 CURDIR := /home/altair/Documenti/OS/Kernel
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_L10N_BUNDLE_LOCATION = 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -243,7 +245,7 @@ GDMSESSION = gnome
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=115/1024=11%, Rehash=0, Collisions=3/150=2%
+# Load=116/1024=11%, Rehash=0, Collisions=4/151=3%
 
 # Pattern-specific Variable Values
 
@@ -251,18 +253,18 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# kernel (device 2051, inode 59380334): 24 files, no impossibilities.
+# kernel (device 2051, inode 59380334): 14 files, no impossibilities.
 # include/kernel/file_system: could not be stat'd.
 # include (device 2051, inode 59510925): 8 files, no impossibilities.
-# init (device 2051, inode 59642333): 4 files, no impossibilities.
-# kernel/interrupts (device 2051, inode 59642340): 10 files, no impossibilities.
+# init (device 2051, inode 59642333): 3 files, no impossibilities.
+# kernel/interrupts (device 2051, inode 59642340): 6 files, no impossibilities.
 # include/kernel/interrupts (device 2051, inode 59511238): 5 files, no impossibilities.
 # . (device 2051, inode 59380331): 15 files, no impossibilities.
-# libc (device 2051, inode 59642328): 10 files, no impossibilities.
+# libc (device 2051, inode 59642328): 6 files, no impossibilities.
 # file_system (device 2051, inode 60297518): 5 files, no impossibilities.
 # include/kernel (device 2051, inode 59510929): 14 files, no impossibilities.
 
-# 95 files, no impossibilities in 10 directories.
+# 76 files, no impossibilities in 10 directories.
 
 # Implicit Rules
 
@@ -279,7 +281,6 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 	nasm $< -f bin -o $@
 
 # 3 implicit rules, 0 (0.0%) terminal.
- 
 # Files
 
 # Not a target:
@@ -295,6 +296,7 @@ compile: OS.bin
 #  recipe to execute (from 'Makefile', line 70):
 	make clean
 
+ 
 # Not a target:
 kernel/memory.o:
 #  Implicit rule search has not been done.
@@ -348,7 +350,7 @@ debug: OS.bin kernel.elf
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2023-01-14 18:00:13.731265746
+#  Last modified 2023-01-14 18:27:01.785236324
 #  File has been updated.
 #  Successfully updated.
 
@@ -379,6 +381,7 @@ clean:
 	$(RM) boot/*.o boot/*.bin
 	$(RM) bootloader/*.o bootloader/*.bin
 	$(RM) init/*.o
+	$(RM) file_system/*.o
 	$(RM) kernel/*.o
 	$(RM) kernel/interrupts/*.o
 	$(RM) libc/*.o
@@ -530,12 +533,12 @@ kernel/interrupts/irq.o:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 140 / storage = 1727 B / avg = 12 B
-# current buf: size = 8162 B / used = 1727 B / count = 140 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 121 / storage = 1569 B / avg = 12 B
+# current buf: size = 8162 B / used = 1569 B / count = 121 / avg = 12 B
 
-# strcache performance: lookups = 248 / hit rate = 43%
+# strcache performance: lookups = 229 / hit rate = 47%
 # hash-table stats:
-# Load=140/8192=2%, Rehash=0, Collisions=3/248=1%
-# Finished Make data base on Sat Jan 14 18:00:19 2023
+# Load=121/8192=1%, Rehash=0, Collisions=3/229=1%
+# Finished Make data base on Sat Jan 14 18:27:36 2023
 
  
