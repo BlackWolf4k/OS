@@ -2,6 +2,4 @@
 
 // Create the super block of a partition
 // Requires as input the descriptor of the partition
-void ext_create_super_block( partition_table_descriptor_t partition_descriptor );
-
-//
+// void ext_create_super_block( partition_table_descriptor_t partition_descriptor );

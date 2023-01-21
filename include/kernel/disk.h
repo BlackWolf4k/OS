@@ -95,8 +95,8 @@ chs_t lba_to_chs( uint32_t lba );
 
 // Reads from the disk n sectors at addres LBA and stores them in buffer
 // buffer = buffer to store data, sectors = sector to read, LBA = logical block address
-void read_disk( uint32_t buffer, uint8_t sectors, uint32_t LBA );
+void read_disk( ptr_t buffer, uint8_t sectors, uint32_t LBA );
 
 // Wrote to the disk n sectors at addres LBA from buffer
 // buffer = buffer to read data, length = number of bytes, LBA = logical block address
-void write_disk( uint32_t buffer, int32_t length, uint32_t LBA );
+void write_disk( ptr_t buffer, int32_t length, uint32_t LBA );

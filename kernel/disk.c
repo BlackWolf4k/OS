@@ -110,7 +110,7 @@ chs_t lba_to_chs( uint32_t lba )
 	return chs;
 }
 
-void read_disk( uint32_t buffer, uint8_t sectors, uint32_t LBA )
+void read_disk( ptr_t buffer, uint8_t sectors, uint32_t LBA )
 {
 	// Wait the disk is ready
 	wait_status( bsy );
@@ -151,7 +151,7 @@ void read_disk( uint32_t buffer, uint8_t sectors, uint32_t LBA )
 	}
 }
 
-void write_disk( uint32_t buffer, int32_t length, uint32_t LBA )
+void write_disk( ptr_t buffer, int32_t length, uint32_t LBA )
 {
 	// The length translated in sectors
 	uint32_t sectors = length / 512 + 1;

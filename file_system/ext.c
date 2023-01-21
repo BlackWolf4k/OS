@@ -1,41 +1,44 @@
 /* SOME INFORMATIONS */
 /*
+FileSystem name: ext0
+ext0 is my reinterpretation of the ext1 / ext2 file system
+It uses the basics concepts of the ext file systems but in a simpler way:
+	-The superblock is reduces, there are less informations
+	-The block groups are more compact:
+	Each block group is composed by 8192 blocks:
+		-The first 2 blocks are reserved for bitmaps ( blocks bitmap and inodes bitmap )
+		-The following 32 blocks are reserved for the indodes
+		-All the remaining are usable to store data
+	-The inodes are pretty much the same
+The size of a block is not changeble, it is of 1024 byte
+
+
 SUPERBLOCK
 The superblock is located 1024 bytes from the start of the partition and is 1024 bytes long
 Superblock descriptor:
 Offset	SIZE		Description
 +0		4			Number of inodes in the file system
 +4		4			Number of blocks in the file system
-+8		4			Number of blocks reserved for the superuser
-+12		4			Number of unlocated blocks
-+16		4			Number of unlocated inodes
-+20		4			Number of the block of the superblock
-+24		4			The size of a block
-+28		4			The size of a fragment
-+32		4			Number of block per block group
-+36		4			Number of fragment per block group
-+40		4			Number of inodes per block group
-+44		4			Last mount timestamp
-+48		4			Last written timestamp
-+52		4			Removed
-+54		2			Removed
-+56		2			ext signature 0xef53 // TO REMOVE ?
-+58		2			File system state
-+60		2			Error handling methods
-+62		2			Removed
-+64		4			Removed
-+68		4			Removed
-+72		4			Creator Operating System
-+76		4			Removed
-+80		2			User ID that can use reserved blocks
-+82		2			Group ID that can use reserved blocks
++8		4			Number of the block of the superblock
++12		4			Last mount timestamp
++16		4			Last written timestamp
++20		2			ext signature 0xef53 // TO REMOVE ?
++22		2			File system state
++24		12			Error handling methods
++36		4			Creator Operating System
 
 FILE SYSTEM STATE
 Value	State
 1		Clean
 2		Has Errors
+3		Is damaged ( kernel panic )
 
 ERROR HANDLING METHODS
+Offset 	Description
+0		Ignore
+4		Correction
+8		Kernel panic
+
 CREATOR OPERATING SYSTEM ID
 Value	Operating System
 0		Linux
@@ -48,14 +51,11 @@ BLOCK GROUP DESCRIPTOR
 Contains the informations about the other blocks
 
 Block group descriptor:
-Offset	SIZE		Description
-+0		4			Block address of block usage bitmap
-+4		4			Block address of inode usage bitmap
-+8		4			Starting block of inode table
-+12		2			Number of unallocated blocks
-+14		2			Number of unallocated inodes
-+16		2			Number of directories in the group
-+18		x			Unused
+BLOCK OFFESET	BLOCK SIZE		Description
++0				1				Contains the bitmap of the blocks ( 0: unused, 1: used )
++1				1				Contains the address of each inode
++2				32				Contains the inodes
++34				8158			Block for data
 
 INODE
 Structure that reppresents data indirectly
@@ -93,7 +93,7 @@ Offset	SIZE		Description
 +100	4			Removed
 +104	4			Reserved
 +108	4			Reserved
-+112	4			Block address of fragment
++112	4			Block address of fragment // REMOVE
 +116	12			Removed
 
 Inode Type
@@ -138,55 +138,38 @@ Each inode is 128 bytes long
 */
 
 #include "../include/stddef.h"
+#include "../include/file_system/ext.h"
+#include "../include/kernel/disk.h"
+
+// The size of a block
+#define BLOCK_SIZE 1024
+
+typedef struct
+{
+	ptr_t ignore;
+	ptr_t correction;
+	ptr_t panic;
+} error_handling_methods_t;
 
 typedef struct
 {
 	uint32_t number_of_inodes;
 	uint32_t number_of_blocks;
-	uint32_t number_of_reserved_blocks;
-	uint32_t number_of_unallocated_blocks;
-	uint32_t number_of_unallocated_inodes;
-	uint32_t number_of_block_containing_superblock;
-	uint32_t block_size;
-	uint32_t fragment_size;
-	uint32_t blocks_per_block_group;
-	uint32_t fragments_per_block_group;
-	uint32_t inodes_per_block_group;
+	uint32_t starting_block;
 	uint32_t last_mount;
 	uint32_t last_written;
-	uint16_t __removed0;
-	uint16_t __removed1;
 	uint16_t ext2_signature;
 	uint16_t file_system_state;
-	uint16_t error_handling_methods;
-	uint16_t __removed2;
-	uint32_t __removed3;
-	uint32_t __removed4;
+	error_handling_methods_t error_handling_methods;
 	uint32_t operating_system_id;
-	uint32_t __removed5;
-	uint16_t user_id;
-	uint16_t group_id;
-} superblock_descriptor_t;
+} superblock_t;
 
 typedef enum
 {
 	clean = 1,
-	errors = 2
-} file_system_state_t;
-
-typedef enum
-{
-	ignore = 1,
-	nothing = 2,
+	errors = 2,
 	panic = 3
-} error_handling_methods_index_t;
-
-typedef struct
-{
-	ptr_t ignore;
-	ptr_t __removed;
-	ptr_t panic;
-} error_handling_methods_t;
+} file_system_state_t;
 
 typedef enum
 {
@@ -199,14 +182,16 @@ typedef enum
 
 typedef struct
 {
-	uint32_t block_address_blocks;
-	uint32_t block_address_inodes;
-	uint32_t starting_address_inodes_table;
-	uint16_t unallocated_blocks_in_group;
-	uint16_t unallocated_inodes_in_group;
-	uint16_t directories_per_group;
-	uint16_t __unused[7];
-} block_group_descriptor_t;
+	uint8_t bytes[ BLOCK_SIZE ];
+} block_t;
+
+typedef struct
+{
+	block_t blocks_bitmap; // Blocks bitmap
+	block_t inodes_addresses;  // The address of the inodes
+	block_t inodes_blocks[ 32 ]; // Store the inodes descriptors
+	block_t data_blocks[ 8158 ]; // The blocks where to store the data
+} block_group_t;
 
 typedef struct
 {
@@ -241,8 +226,8 @@ typedef struct
 	uint32_t __reserved0;
 	uint32_t __reserved1;
 	uint32_t fragment_block_address;
-	uint32_t __removed2[3]
-} inode_descriptor_t;
+	uint32_t __removed2[3];
+} inode_t;
 
 typedef enum
 {
@@ -270,3 +255,51 @@ typedef enum
 	__removed1 = 0x400,
 	__removed2 = 0x800
 } inode_permissions_t;
+
+/* PRIVATE FUNCTIONS */
+/*
+Write a block to the disk
+ARGUMENTS: ( block_t*, uint32_t, superblock_t )
+	-block: the block to write
+	-block_offset: how much to offset from the beginning of the partition
+	-superblock: superblock of the partition
+RETURN: ( uint8_t )
+	-0: Error
+	-1: OK
+*/
+uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t superblock );
+
+/*
+Create a ext file system
+ARGUMENTS: ( partition_table_descriptor_t )
+	-partition_descriptor: descriptor of the partition of the disk where to make the file system
+RETURN: ( uint8_t )
+	-0: Error
+	-1: OK
+*/
+void make_ext( partition_table_descriptor_t partition_descriptor );
+
+uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t superblock )
+{
+	// Get the lba offset
+	uint32_t lba = ( superblock.starting_block + block_offset ) * ( BLOCK_SIZE / 512 ); // 512 = sector size
+
+	// Write to the disk
+	write_disk( ( ptr_t )block, BLOCK_SIZE, lba );
+
+	// For now there is no control if the writing was sucessfull
+	// CORRECT THIS
+	return 1;
+}
+
+void make_ext( partition_table_descriptor_t partition_descriptor )
+{
+	// Allocate the space for the superblock
+	// Set the values of the superblock
+	// Write the superblock
+	// Free the memory space
+	// Calculate how many block groups are needed to fill the partition
+		// Get the base address of the block group
+		// Set the value of the block group
+	// Check the creation
+}
