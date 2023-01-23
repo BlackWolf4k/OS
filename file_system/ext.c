@@ -137,9 +137,9 @@ Where:
 Each inode is 128 bytes long
 */
 
-#include "../include/stddef.h"
 #include "../include/file_system/ext.h"
-#include "../include/kernel/disk.h"
+#include "../include/kernel/memory.h"
+#include "../include/kernel/debug.h"
 
 // The size of a block
 #define BLOCK_SIZE 1024
@@ -259,27 +259,87 @@ typedef enum
 /* PRIVATE FUNCTIONS */
 /*
 Write a block to the disk
-ARGUMENTS: ( block_t*, uint32_t, superblock_t )
+ARGUMENTS: ( block_t*, uint32_t, superblock_t* )
 	-block: the block to write
 	-block_offset: how much to offset from the beginning of the partition
-	-superblock: superblock of the partition
+	-superblock: pointer to the superblock of the partition
 RETURN: ( uint8_t )
 	-0: Error
 	-1: OK
 */
-uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t superblock );
+uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t* superblock );
 
-/*
-Create a ext file system
-ARGUMENTS: ( partition_table_descriptor_t )
-	-partition_descriptor: descriptor of the partition of the disk where to make the file system
-RETURN: ( uint8_t )
-	-0: Error
-	-1: OK
-*/
-void make_ext( partition_table_descriptor_t partition_descriptor );
+/* PUBLIC FUNCTIONS */
 
-uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t superblock )
+uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
+{
+	// Allocate a block in the heap memory
+	block_t* block = kmalloc_c( sizeof( block_t ) );
+
+	// Check that the allocation was sucessfull
+	if ( block = NULL )
+	{
+		// Print some debug informations
+		debugf( error, "file_system/ext.c -> make_ext()", "There was an error allocating the memory" );
+
+		// Return a error code
+		return 0;
+	}
+
+	// Set the superblock
+	// Calcolate the number of blocks
+	uint32_t number_of_blocks = partition_descriptor.total_sectors * ( BLOCK_SIZE / 512 );
+
+	// Calcolate number of block groups
+	uint32_t number_of_block_groups = number_of_blocks / ( BLOCK_SIZE * 8 );
+
+	// Calcolate number of inode
+	uint32_t number_of_inodes = number_of_block_groups * ( BLOCK_SIZE / 4 );
+
+	// Calculate number of blocks for the inodes
+	uint32_t number_of_blocks_for_inodes = ( sizeof( inode_t ) * number_of_inodes ) / BLOCK_SIZE;
+
+	// Set the values of the superblock
+	( ( superblock_t* )block ) -> number_of_inodes = number_of_inodes;
+	( ( superblock_t* )block ) -> number_of_blocks = number_of_blocks;
+	( ( superblock_t* )block ) -> starting_block = partition_descriptor.relative_sector;
+	( ( superblock_t* )block ) -> file_system_state = file_system_state_t.clean;
+	( ( superblock_t* )block ) -> operating_system_id = creator_operating_system_ids_t.mine; // to change
+
+	// Write the superblock
+	write_block( block, 0, ( superblock_t* )block );
+
+	// Clear the block buffer
+	bzero( block, BLOCK_SIZE );
+
+	// Set the default values of the block bitmap
+	memset( block, 1, 4 );
+
+	// Write the block groups block descriptors
+	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+		// Write the block bitmap
+		write_block( block, i * BLOCK_SIZE * 8, ( superblock_t* )block );
+	
+	// Clear the block buffer
+	bzero( block, BLOCK_SIZE );
+	
+	// Write the block groups inodes' addresses block
+	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )block );
+
+	// Write the inodes blocks
+	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+		for ( uint32_t j = 0; j < ())
+
+	// Check the creation
+
+	// Free the memory space
+	free( block );
+}
+
+/* PRIVATE FUNCTIONS */
+
+uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t* superblock )
 {
 	// Get the lba offset
 	uint32_t lba = ( superblock.starting_block + block_offset ) * ( BLOCK_SIZE / 512 ); // 512 = sector size
@@ -290,16 +350,4 @@ uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t superbl
 	// For now there is no control if the writing was sucessfull
 	// CORRECT THIS
 	return 1;
-}
-
-void make_ext( partition_table_descriptor_t partition_descriptor )
-{
-	// Allocate the space for the superblock
-	// Set the values of the superblock
-	// Write the superblock
-	// Free the memory space
-	// Calculate how many block groups are needed to fill the partition
-		// Get the base address of the block group
-		// Set the value of the block group
-	// Check the creation
 }

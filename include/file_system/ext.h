@@ -1,5 +1,12 @@
-// This ext file system is my review of the ext2 file system
+#include "../stddef.h"
+#include "../kernel/disk.h"
 
-// Create the super block of a partition
-// Requires as input the descriptor of the partition
-// void ext_create_super_block( partition_table_descriptor_t partition_descriptor );
+/*
+Create a ext file system
+ARGUMENTS: ( partition_table_descriptor_t )
+	-partition_descriptor: descriptor of the partition of the disk where to make the file system
+RETURN: ( uint8_t )
+	-0: Error
+	-1: OK
+*/
+uint8_t make_ext( partition_table_descriptor_t partition_descriptor );
