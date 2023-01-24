@@ -273,11 +273,12 @@ uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t* superb
 
 uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 {
-	// Allocate a block in the heap memory
+	// Allocate two blocks in the heap memory
 	block_t* block = kmalloc_c( sizeof( block_t ) );
+	block_t* super_block = kmalloc_c( sizeof( block_t ) );
 
 	// Check that the allocation was sucessfull
-	if ( block = NULL )
+	if ( block = NULL || super_block == NULL )
 	{
 		// Print some debug informations
 		debugf( error, "file_system/ext.c -> make_ext()", "There was an error allocating the memory" );
@@ -300,14 +301,14 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	uint32_t number_of_blocks_for_inodes = ( sizeof( inode_t ) * number_of_inodes ) / BLOCK_SIZE;
 
 	// Set the values of the superblock
-	( ( superblock_t* )block ) -> number_of_inodes = number_of_inodes;
-	( ( superblock_t* )block ) -> number_of_blocks = number_of_blocks;
-	( ( superblock_t* )block ) -> starting_block = partition_descriptor.relative_sector;
-	( ( superblock_t* )block ) -> file_system_state = file_system_state_t.clean;
-	( ( superblock_t* )block ) -> operating_system_id = creator_operating_system_ids_t.mine; // to change
+	( ( superblock_t* )super_block ) -> number_of_inodes = number_of_inodes;
+	( ( superblock_t* )super_block ) -> number_of_blocks = number_of_blocks;
+	( ( superblock_t* )super_block ) -> starting_block = partition_descriptor.relative_sector;
+	( ( superblock_t* )super_block ) -> file_system_state = file_system_state_t.clean;
+	( ( superblock_t* )super_block ) -> operating_system_id = creator_operating_system_ids_t.mine; // to change
 
 	// Write the superblock
-	write_block( block, 0, ( superblock_t* )block );
+	write_block( block, 0, ( superblock_t* )super_block );
 
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
@@ -318,18 +319,29 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	// Write the block groups block descriptors
 	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
 		// Write the block bitmap
-		write_block( block, i * BLOCK_SIZE * 8, ( superblock_t* )block );
+		write_block( block, i * BLOCK_SIZE * 8, ( superblock_t* )super_block );
 	
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
 	
 	// Write the block groups inodes' addresses block
 	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )block );
+		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )super_block );
+	
+	// Clear the block buffer
+	bzero( block, BLOCK_SIZE );
+
+	// Create empty inode
+	inode_t inode;
+
+	// Fill a block with inode descriptors
+	for ( uint32_t i = 0; i < BLOCK_SIZE / sizeof( inode_t ); i++ )
+		( ( inode_t* )block )[i] = inode;
 
 	// Write the inodes blocks
 	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-		for ( uint32_t j = 0; j < ())
+		for ( uint32_t j = 0; j < ( number_of_blocks_for_inodes ); j++ )
+			write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 2, ( superblock_t* )super_block )
 
 	// Check the creation
 
