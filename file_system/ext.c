@@ -140,6 +140,8 @@ Each inode is 128 bytes long
 #include "../include/file_system/ext.h"
 #include "../include/kernel/memory.h"
 #include "../include/kernel/debug.h"
+#include "../include/string.h"
+#include "../include/kernel/memory.h"
 
 // The size of a block
 #define BLOCK_SIZE 1024
@@ -164,14 +166,14 @@ typedef struct
 	uint32_t operating_system_id;
 } superblock_t;
 
-typedef enum
+enum
 {
 	clean = 1,
 	errors = 2,
-	panic = 3
+	panic_ = 3
 } file_system_state_t;
 
-typedef enum
+enum
 {
 	linux = 0,
 	gnu_hurd,
@@ -278,7 +280,7 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	block_t* super_block = kmalloc_c( sizeof( block_t ) );
 
 	// Check that the allocation was sucessfull
-	if ( block = NULL || super_block == NULL )
+	if ( block == NULL || super_block == NULL )
 	{
 		// Print some debug informations
 		debugf( error, "file_system/ext.c -> make_ext()", "There was an error allocating the memory" );
@@ -289,10 +291,12 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 
 	// Set the superblock
 	// Calcolate the number of blocks
-	uint32_t number_of_blocks = partition_descriptor.total_sectors * ( BLOCK_SIZE / 512 );
+	uint32_t number_of_blocks = partition_descriptor.total_sectors / ( BLOCK_SIZE / 512 );
 
 	// Calcolate number of block groups
 	uint32_t number_of_block_groups = number_of_blocks / ( BLOCK_SIZE * 8 );
+
+	kprintf( "Number of blocks: %d\n", number_of_block_groups );
 
 	// Calcolate number of inode
 	uint32_t number_of_inodes = number_of_block_groups * ( BLOCK_SIZE / 4 );
@@ -304,29 +308,29 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	( ( superblock_t* )super_block ) -> number_of_inodes = number_of_inodes;
 	( ( superblock_t* )super_block ) -> number_of_blocks = number_of_blocks;
 	( ( superblock_t* )super_block ) -> starting_block = partition_descriptor.relative_sector;
-	( ( superblock_t* )super_block ) -> file_system_state = file_system_state_t.clean;
-	( ( superblock_t* )super_block ) -> operating_system_id = creator_operating_system_ids_t.mine; // to change
+	( ( superblock_t* )super_block ) -> file_system_state = clean;
+	( ( superblock_t* )super_block ) -> operating_system_id = 0x7777; // to change
 
 	// Write the superblock
-	write_block( block, 0, ( superblock_t* )super_block );
+	write_block( super_block, 0, ( superblock_t* )super_block );
 
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
 
 	// Set the default values of the block bitmap
-	memset( block, 1, 4 );
+	memset( block, 255, 4 );
 
 	// Write the block groups block descriptors
 	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
 		// Write the block bitmap
-		write_block( block, i * BLOCK_SIZE * 8, ( superblock_t* )super_block );
+		write_block( block, i + 1, ( superblock_t* )super_block );
 	
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
 	
 	// Write the block groups inodes' addresses block
-	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )super_block );
+	// for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+	// 	write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )super_block );
 	
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
@@ -335,18 +339,19 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	inode_t inode;
 
 	// Fill a block with inode descriptors
-	for ( uint32_t i = 0; i < BLOCK_SIZE / sizeof( inode_t ); i++ )
-		( ( inode_t* )block )[i] = inode;
+	// for ( uint32_t i = 0; i < BLOCK_SIZE / sizeof( inode_t ); i++ )
+	// 	( ( inode_t* )block )[i] = inode;
 
 	// Write the inodes blocks
-	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-		for ( uint32_t j = 0; j < ( number_of_blocks_for_inodes ); j++ )
-			write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 2, ( superblock_t* )super_block )
+	// for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+	// 	for ( uint32_t j = 0; j < ( number_of_blocks_for_inodes ); j++ )
+	// 		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 2, ( superblock_t* )super_block );
 
 	// Check the creation
 
-	// Free the memory space
-	free( block );
+	// Free the memory spaces
+	kfree( super_block );
+	kfree( block );
 }
 
 /* PRIVATE FUNCTIONS */
@@ -354,7 +359,7 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t* superblock )
 {
 	// Get the lba offset
-	uint32_t lba = ( superblock.starting_block + block_offset ) * ( BLOCK_SIZE / 512 ); // 512 = sector size
+	uint32_t lba = superblock -> starting_block + block_offset * ( BLOCK_SIZE / 512 ); // 512 = sector size
 
 	// Write to the disk
 	write_disk( ( ptr_t )block, BLOCK_SIZE, lba );

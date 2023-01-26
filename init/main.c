@@ -49,6 +49,12 @@ void kmain()
 
 	kprintf( "Kernel End: '%p'\n", &kernel_end );
 
+	partition_table_descriptor_t partition_descriptor = create_partition_descriptor( 0, lba_to_chs( 2 ), 0x83, lba_to_chs( 1 * 1024 * 1024 ) );
+
+	create_partition( 0, partition_descriptor );
+
+	make_file_system( partition_descriptor, 0 );
+
 	kprintf( "Goodbye World!\n" );
 
 	debug_heap_memory();

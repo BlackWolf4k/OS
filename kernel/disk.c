@@ -24,13 +24,13 @@ partition_table_descriptor_t create_partition_descriptor( bool_t bootable, chs_t
 
 	// Describe the start of partition
 	descriptor.starting_head = chs_start.head;
-	descriptor.starting_sector = ( ( ( chs_start.cylinder >> 6 ) & 0x3 ) << 6 ) + chs_start.sector & 0x3f; // CLEAR THIS
+	descriptor.starting_sector = ( ( ( chs_start.cylinder >> 6 ) & 0x3 ) << 6 ) + ( chs_start.sector & 0x3f ); // CLEAR THIS
 	descriptor.starting_cylinder = chs_start.cylinder & 0xff;
 
 	descriptor.system_id = partition_id;
 
 	descriptor.ending_head = chs_end.head;
-	descriptor.ending_sector = ( ( ( chs_end.cylinder >> 6 ) & 0x3 ) << 6 ) + chs_end.sector & 0x3f; // CLEAR THIS
+	descriptor.ending_sector = ( ( ( chs_end.cylinder >> 6 ) & 0x3 ) << 6 ) + ( chs_end.sector & 0x3f ); // CLEAR THIS
 	descriptor.ending_cylinder = chs_end.cylinder & 0xff;
 
 	descriptor.relative_sector = chs_to_lba( chs_start );

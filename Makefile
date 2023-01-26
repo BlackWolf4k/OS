@@ -69,6 +69,9 @@ disk:
 compile: OS.bin
 	make clean
 
+clear_disk:
+	shred -n 0 -z -v ../hard_drive.img
+
 clean:
 	$(RM) boot/*.o boot/*.bin
 	$(RM) bootloader/*.o bootloader/*.bin
