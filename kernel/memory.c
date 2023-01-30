@@ -78,6 +78,8 @@ void init_heap()
 	heap_tail -> size = 0; // the tail has no size
 	heap_tail -> previous = ( ptr_t )heap_head;
 	heap_tail -> next = NULL; // has no next node
+
+	lprintf( 1, "Heap Memory Initialized\n" );
 }
 
 void* kmalloc( uint32_t size )

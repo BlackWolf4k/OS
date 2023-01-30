@@ -49,6 +49,36 @@ void kprintf( const char* string, ... )
 	va_end( arguments );
 }
 
+void lprintf( bool_t status, const char* string, ... )
+{
+	// Create a va_list of the arguments
+	va_list arguments;
+	va_start( arguments, string );
+
+	// Write the status
+	kprintf( "[" );
+
+	// Change message bases on the status value
+	if ( status )
+	{
+		set_color( 0x02 );
+		kprintf( "OK" );
+	}
+	else
+	{
+		set_color( 0x04 );
+		kprintf( "ERROR" );
+	}
+
+	set_color( 0x0f );
+	kprintf( "] " );
+
+	// Call the vprintf, specifing the "PUT" function
+	vprintf( put_char, string, arguments );
+
+	va_end( arguments );
+}
+
 // Print data to a buffer
 void sprintf( const char* string, ... );
 

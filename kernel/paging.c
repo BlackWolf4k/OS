@@ -68,6 +68,7 @@ static page_directory_t* page_directory;
 void init_paging()
 {
 	// kprintf( "-%d-", sizeof( page_t ) );
+	lprintf( 0, "Paging not Initialized\n" );
 }
 
 ptr_t palloc()

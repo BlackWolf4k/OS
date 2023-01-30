@@ -20,12 +20,13 @@ Offset	SIZE		Description
 +0		4			Number of inodes in the file system
 +4		4			Number of blocks in the file system
 +8		4			Number of the block of the superblock
-+12		4			Last mount timestamp
-+16		4			Last written timestamp
-+20		2			ext signature 0xef53 // TO REMOVE ?
-+22		2			File system state
-+24		12			Error handling methods
-+36		4			Creator Operating System
++12		4			Last inode used
++16		4			Last mount timestamp
++20		4			Last written timestamp
++24		2			ext signature 0xef53 // TO REMOVE ?
++26		2			File system state
++28		12			Error handling methods
++40		4			Creator Operating System
 
 FILE SYSTEM STATE
 Value	State
@@ -158,9 +159,10 @@ typedef struct
 	uint32_t number_of_inodes;
 	uint32_t number_of_blocks;
 	uint32_t starting_block;
+	uint32_t last_inode;
 	uint32_t last_mount;
 	uint32_t last_written;
-	uint16_t ext2_signature;
+	uint16_t ext_signature;
 	uint16_t file_system_state;
 	error_handling_methods_t error_handling_methods;
 	uint32_t operating_system_id;
@@ -296,9 +298,7 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	// Calcolate number of block groups
 	uint32_t number_of_block_groups = number_of_blocks / ( BLOCK_SIZE * 8 );
 
-	kprintf( "Number of blocks: %d\n", number_of_block_groups );
-
-	// Calcolate number of inode
+	// Calcolate the total number of inode
 	uint32_t number_of_inodes = number_of_block_groups * ( BLOCK_SIZE / 4 );
 
 	// Calculate number of blocks for the inodes
@@ -323,14 +323,21 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	// Write the block groups block descriptors
 	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
 		// Write the block bitmap
-		write_block( block, i + 1, ( superblock_t* )super_block );
+		write_block( block, i * ( BLOCK_SIZE * 8 ) + 1, ( superblock_t* )super_block );
 	
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
-	
-	// Write the block groups inodes' addresses block
-	// for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-	// 	write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 1, ( superblock_t* )super_block );
+
+	// Write the address of the inodes
+	for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+	{
+		// Store the addresses in the block
+		for ( uint32_t j = 0; j < BLOCK_SIZE / sizeof( inode_t ); j++ )
+			( ( ptr_t )block )[j] = ( ptr_t )( ( ( superblock_t* )super_block ) -> starting_block + BLOCK_SIZE + ( i * BLOCK_SIZE * 8 ) + j * sizeof( inode_t ) );
+		
+		// Write the block
+		write_block( block, i * ( BLOCK_SIZE * 8 ) + 2, ( superblock_t* )super_block );
+	}
 	
 	// Clear the block buffer
 	bzero( block, BLOCK_SIZE );
@@ -338,14 +345,14 @@ uint8_t make_ext( partition_table_descriptor_t partition_descriptor )
 	// Create empty inode
 	inode_t inode;
 
-	// Fill a block with inode descriptors
-	// for ( uint32_t i = 0; i < BLOCK_SIZE / sizeof( inode_t ); i++ )
-	// 	( ( inode_t* )block )[i] = inode;
+	//Fill a block with inode descriptors
+	//for ( uint32_t i = 0; i < BLOCK_SIZE / sizeof( inode_t ); i++ )
+	//	( ( inode_t* )block )[i] = inode;
 
 	// Write the inodes blocks
-	// for ( uint32_t i = 0; i < number_of_block_groups; i++ )
-	// 	for ( uint32_t j = 0; j < ( number_of_blocks_for_inodes ); j++ )
-	// 		write_block( block, ( i * ( BLOCK_SIZE * 8 ) ) + 2, ( superblock_t* )super_block );
+	//for ( uint32_t i = 0; i < number_of_block_groups; i++ )
+	//	for ( uint32_t j = 0; j < ( number_of_blocks_for_inodes ); j++ )
+	//		write_block( block, ( i + 2, ( superblock_t* )super_block );
 
 	// Check the creation
 
@@ -362,7 +369,7 @@ uint8_t write_block( block_t* block, uint32_t block_offset, superblock_t* superb
 	uint32_t lba = superblock -> starting_block + block_offset * ( BLOCK_SIZE / 512 ); // 512 = sector size
 
 	// Write to the disk
-	write_disk( ( ptr_t )block, BLOCK_SIZE, lba );
+	write_disk( ( ptr_t )block, BLOCK_SIZE - 1, lba );
 
 	// For now there is no control if the writing was sucessfull
 	// CORRECT THIS

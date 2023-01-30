@@ -22,19 +22,34 @@ extern ptr_t kernel_end;
 // Start the basic parts of the kernel
 void kernel_early_main()
 {
-	// Second phase initialization
-	init_serial( COM1 );
-	init_serial( COM2 );
+	// Initialize the screen
+	init_screen();
+
+	// Initialize the heap memory
 	init_heap();
 
-	// First phase initialization
-	init_screen();
+	// Initialize interrupts
 	init_idt();
-	init_timer( 60 );
-	init_keyboard();
+
+	// Initialize paging
 	init_paging();
 
-	// Third phase initialization
+	// Initialize serial ports
+	if ( init_serial( COM1 ) )
+		lprintf( 1, "Serial %d Initialized\n", COM1 );
+	else
+		lprintf( 0, "Serial %d not Initialized\n", COM1 );
+
+	if ( init_serial( COM2 ) )
+		lprintf( 1, "Serial %d Initialized\n", COM2 );
+	else
+		lprintf( 0, "Serial %d not Initialized\n", COM2 );
+
+	// Initialize timer
+	init_timer( 60 );
+
+	// Initialize keyboard
+	init_keyboard();
 }
 
 // Kernel start and kernel end are in linker.ld
@@ -45,7 +60,15 @@ void kmain()
 	/* Initialize the kernel */
 	kernel_early_main();
 
-	kprintf( "Hello World!\n" );
+	for ( uint16_t i = 0; i <= 256; i += 16 )
+	{
+		set_color( ( uint8_t )i );
+		kprintf( " " );
+	}
+
+	set_color( 0x0f );
+
+	kprintf( "\nHello World!\n" );
 
 	kprintf( "Kernel End: '%p'\n", &kernel_end );
 
@@ -53,7 +76,10 @@ void kmain()
 
 	create_partition( 0, partition_descriptor );
 
+	kprintf( "Created partition 0x%p of size: %d bytes\n", 0x83, 1024 * 1024 * 511 );
+
 	make_file_system( partition_descriptor, 0 );
+	kprintf( "Created ext file system for partition 0x%p\n", 0x83 );
 
 	kprintf( "Goodbye World!\n" );
 

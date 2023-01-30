@@ -31,6 +31,8 @@ void init_idt()
 
 	// Load the idt register
 	load_idt();
+
+	lprintf( 1, "Interrupts Initialized\n" );
 }
 
 void load_idt()

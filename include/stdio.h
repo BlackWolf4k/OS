@@ -25,6 +25,9 @@ char* itoa( int32_t value, char* string, int32_t base );
 // Based on: https://cplusplus.com/reference/cstdio/printf/
 void kprintf( const char* string, ... );
 
+// Print a message in log form
+void lprintf( bool_t status, const char* string, ... );
+
 // Print data to a buffer
 void sprintf( const char* string, ... );
 

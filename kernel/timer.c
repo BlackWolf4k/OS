@@ -23,6 +23,8 @@ void init_timer( uint32_t frequency )
 	outb( 0x43, 0x36 ); // Set command port
 	outb( 0x40, low );
 	outb( 0x40, high );
+
+	lprintf( 1, "Timer Initialized\n" );
 }
 
 uint32_t get_ticks()

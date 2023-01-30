@@ -54,6 +54,8 @@ void init_screen()
 	// Clear the screen from booting messages
 	clear_screen();
 	set_cursor( 0 );
+
+	lprintf( 1, "Screen Initialized\n" );
 }
 
 void clear_screen()

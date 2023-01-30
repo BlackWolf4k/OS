@@ -82,4 +82,6 @@ void init_keyboard()
 {
 	// For irq33 set keyboard_callback as handler
 	register_interrupt_handler( 32 + 1, keyboard_callback );
+
+	lprintf( 1, "Keyboard Initialized\n" );
 }
